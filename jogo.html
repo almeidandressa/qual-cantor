@@ -1,0 +1,302 @@
+<!doctype html>
+<html class="no-js" lang="">
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <title>Qual o cantor?</title>
+  <meta name="description" content="">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <link rel="apple-touch-icon" href="icon.png">
+  <link rel="stylesheet" href="css/reset.css">
+  <link rel="stylesheet" href="css/main.css">
+  <link rel="stylesheet" type="text/css" href="font/material-icons.css"> 
+</head>
+<body>
+
+  <!-- inicio -->
+  <section class="inicio">
+    <h1>QUAL O CANTOR?</h1>    
+    <button>INICIAR</button>
+  </section>
+  <!-- inicio -->
+  
+  <!-- flag-1 -->
+  <section class="flag flag-1">  
+    <header>
+      <p>
+        <span class="mticons">star</span> 
+        ACERTOS: <span class="acertos">0</span>
+      </p>
+      <p>
+        <span class="mticons">alarm</span> 
+        <span class="minutos">00</span>:<span class="tempo">00</span>
+      </p>
+    </header>
+    <div>
+      <h1>QUAIS OS 2 CANTORES QUE ESTÃO CANTANDO?</h1>
+      <ul>
+        <li><img class="certo c1" src="img/lauv.jpg"></li>
+        <li><img class="errado01" src="img/alec.jpg"></li>
+        <li><img class="errado01" src="img/kha.jpg"></li>
+        <li><img class="errado01" src="img/jb.jpg"></li>
+        <li><img class="errado01" src="img/niall.jpg"></li>
+        <li><img class="certo c2" src="img/harry.jpg"></li>
+        <li><img class="errado01" src="img/shawn.jpg"></li>
+        <li><img class="errado01" src="img/z.jpg"></li>
+        <li><img class="errado01" src="img/ed.jpg"></li>
+      </ul>
+    </div>
+    <footer>
+      <p>
+        <span class="home mticons">home</span>
+        <span class="som01 mticons">volume_up</span>
+        <span class="ajuda mticons">help_outline</span>
+      </p>
+    </footer>
+  </section>
+  <!-- flag-1 -->
+  
+  <!-- flag-2 -->
+  <section class="flag flag-2">  
+    <header>
+      <p>
+        <span class="mticons">star</span> 
+        ACERTOS: <span class="acertos">0</span>
+      </p>
+      <p>
+        <span class="mticons">alarm</span> 
+        <span class="minutos">00</span>:<span class="tempo02">00</span>
+      </p>
+    </header>
+    <div>
+      <h1>QUAIS OS 3 CANTORES QUE ESTÃO CANTANDO?</h1>
+      <ul>
+        <li><img class="certo c1" src="img/ari.jpg"></li>
+        <li><img class="errado02" src="img/bey.jpg"></li>
+        <li><img class="errado02" src="img/cami.jpg"></li>
+        <li><img class="errado02" src="img/kp.jpg"></li>
+        <li><img class="errado02" src="img/ri.jpg"></li>
+        <li><img class="certo c2" src="img/bil.jpg"></li>
+        <li><img class="errado02" src="img/sel.jpg"></li>
+        <li><img class="errado02" src="img/tay.jpg"></li>
+        <li><img class="certo c3" src="img/dua.jpg"></li>
+      </ul>
+    </div>
+    <footer>
+      <p>
+        <span class="home mticons">home</span>
+        <span class="som02 mticons">volume_up</span>
+        <span class="ajuda mticons">help_outline</span>
+      </p>
+    </footer>
+  </section>
+  <!-- flag-2 -->
+
+  <!-- flag-3 -->
+  <section class="flag-3">
+    <h2>TOTAL DE ACERTOS: <span class="pont">0</span></h2>
+    <h2>TOTAL DE ERROS: <span class="errors">0</span></h2>
+    <p></p>
+    <h2 id="temppo">TEMPO: 00:<span class="temp">00</span></h2>
+    <button>JOGAR NOVAMENTE</button>
+  </section>
+  <!-- flag-3 -->
+ 
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="js/plugins.js"></script>
+  <script src="js/main.js"></script>
+
+  <script type="text/javascript">
+    var musica = new Audio();
+    var musica01 = new Audio();
+    var musica02 = new Audio();
+    var musica03 = new Audio();
+    var musica04 = new Audio();
+    var musica05 = new Audio();
+    var acertos = 0;
+    var erros = 0;
+    var erros02 = 0;
+    var fim = false;
+
+    $("section.inicio button").on("click", function() {
+      musica01 = new Audio('musica/adore-you-official-audio.mp3');
+      musica01.play();
+      musica02 = new Audio('musica/never-not-lyric-video.mp3');
+      musica02.play();
+    
+      $("section").hide();
+      $("section.flag-1").show();
+      
+      var timer = setInterval(function() {
+        var tempo = parseInt($("span.tempo").text());
+        var tempo02 = parseInt($("span.tempo02").text());
+        tempo++;
+        if (tempo < 10) {
+          tempo = "0" + tempo;
+          tempo02 = "0" + tempo;
+        } else if ((tempo >= 60) && (fim === false)) {
+          $("span.pont").text(acertos);
+          $("span.errors").text(erros + erros02);
+          $("section").hide();
+          $("section.flag-3").show();
+          document.getElementById("temppo").style.display = "none";
+          $("section.flag-3 p").text("Tempo esgotado");
+          musica01.pause();
+          musica02.pause();
+
+          musica = new Audio('musica/game-over-acarde.wav');
+          musica.play();
+          clearInterval(timer);
+        }
+        $("span.tempo").text(tempo);
+        $("span.tempo02").text(tempo);
+      }, 1000)
+    });
+
+    $("section.flag footer p span.home").on("click",function(){
+      location.reload();
+    })
+
+    $("section.flag-1 footer p span.som01").on("click", function() {
+      var botao = $("span.som01").text();
+      if (botao == "volume_up") {
+        musica01.pause();
+        musica02.pause();
+        $("span.som01").text("volume_off");
+      } else {
+        $("span.som01").text("volume_up");
+        musica01.play();
+        musica02.play();
+      }
+    });
+
+    $("section.flag-2 footer p span.som02").on("click", function() {
+      var botao = $("span.som02").text();
+      if (botao == "volume_up") {
+        musica03.pause();
+        musica04.pause();
+        musica05.pause();
+        $("span.som02").text("volume_off");
+      } else {
+        $("span.som02").text("volume_up");
+        musica03.play();
+        musica04.play();
+        musica05.play();
+      }
+    });
+
+    $("section.flag-1 footer p span.ajuda").one("click", function() {
+      $(this).css({opacity: 0.5});
+      var bandeiras = $(".errado01");
+      for (var i=0; i<2; i++) {
+        var random = Math.floor(Math.random() * bandeiras.length);
+        if (bandeiras[random].style.opacity === "0.5") {
+          i--;
+        } else {
+          bandeiras[random].style.opacity = "0.5";
+        }
+      }
+    });
+
+    $("section.flag-2 footer p span.ajuda").one("click", function() {
+      $(this).css({opacity: 0.5});
+      var bandeiras = $(".errado02");
+      for (var i=0; i<2; i++) {
+        var random = Math.floor(Math.random() * bandeiras.length);
+        if (bandeiras[random].style.opacity === "0.5") {
+          i--;
+        } else {
+          bandeiras[random].style.opacity = "0.5";
+        }
+      }
+    });
+
+    $("section.flag-1 ul img.certo").one("click", function() {
+      $(this).css({opacity: 0.5});
+      acertos++;
+      $("span.acertos").text(acertos);
+      
+      if (acertos == 2) {
+        musica01.pause();
+        musica02.pause();
+        $("section.flag-1").hide();
+        $("section.flag-2").show();
+        musica03 = new Audio('musica/7-rings-lyrics.mp3');
+        musica03.play();
+        musica04 = new Audio('musica/break-my-heart-lyrics.mp3');
+        musica04.play();
+        musica05 = new Audio('musica/everything-i-wanted-audio.mp3');
+        musica05.play();
+      }
+    });
+
+    $("section.flag-2 ul img.certo").one("click", function() {
+      $(this).css({opacity: 0.5});
+      acertos++;
+      $("span.acertos").text(acertos);
+
+      if (acertos == 5) {
+        fim = true;
+        musica03.pause();
+        musica04.pause();
+        musica05.pause();
+        musica = new Audio('musica/correct.mp3');
+        musica.play();
+        $("span.pont").text(acertos);
+        $("span.errors").text(erros + erros02);
+        $("span.temp").text($("span.tempo").text());
+        $("section").hide();
+        $("section.flag-3").show();
+      }
+    });
+
+    $("section.flag-1 ul img.errado01").one("click", function() {
+      if (this.style.opacity !== "0.5") {
+        erros++;
+        $(this).css({opacity: 0.5});
+
+        if (erros > 2) {
+          fim = true;
+          musica01.pause();
+          musica02.pause();
+          musica03.pause();
+          musica = new Audio('musica/game-over-acarde.wav');
+          musica.play();
+          $("span.pont").text(acertos);
+          $("span.errors").text(erros);
+          $("span.temp").text($("span.tempo").text());
+          $("section").hide();
+          $("section.flag-3").show();
+        }
+      }
+    });
+
+    $("section.flag-2 ul img.errado02").one("click", function() {
+      if (this.style.opacity !== "0.5") {
+        erros02++;
+        $(this).css({opacity: 0.5});
+
+        if (erros02 > 2) {
+          fim = true;
+          musica03.pause();
+          musica04.pause();
+          musica05.pause();
+          musica = new Audio('musica/game-over-acarde.wav');
+          musica.play();
+          $("span.pont").text(acertos);
+          $("span.errors").text(erros + erros02);
+          $("span.temp").text($("span.tempo").text());
+          $("section").hide();
+          $("section.flag-3").show();
+        }
+      }
+    });
+
+    $("section.flag-3 button").on("click", function() {
+      location.reload();
+    });
+  </script>
+
+</body>
+</html>
